@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1>Hospital Dashboard</h1>
+        </div>
+    </header>
+
+    <section id="hospital-dashboard">
+        <h2>Hospital Details</h2>
+        <p><strong>Name:</strong> <span id="hospital-name"></span></p>
+        <p><strong>Address:</strong> <span id="hospital-address"></span></p>
+        <p><strong>Emergency Contact:</strong> <span id="hospital-contact"></span></p>
+        <button autoclick="playAlertSound()">Play Alert Sound</button>
+
+        <h3>Incoming Patients</h3>
+        <div id="incoming-patients">
+            <p>No patients yet.</p>
+        </div>
+
+        <h3>Ambulance Tracking</h3>
+        <div id="hospital-map" style="width: 100%; height: 400px; background-color: grey;"></div>
+
+        <h3>Patient Status</h3>
+        <textarea id="preparation-status" placeholder="Enter preparation status..."></textarea>
+        <button onclick="updateHospitalStatus()">Update Status</button>
+    </section>
+    <audio id="alert-sound" src="buzzer.mp3" preload="auto"></audio>
+
+
+<script>
+    function checkHospitalNotifications() {
+        const notification = localStorage.getItem('hospital-notification');
+        if (notification) {
+            document.getElementById('incoming-patients').innerHTML = `<p>${notification}</p>`;
+            // Play the alert sound
+            document.getElementById('alert-sound').play();
+            
+            // Clear the notification after displaying it
+            localStorage.removeItem('hospital-notification');
+            localStorage.removeItem('hospital-notified');
+        }
+    }
+</script>
+
+
+    <script>
+        // Load hospital details from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('hospital-name').textContent = localStorage.getItem('hospital-name');
+            document.getElementById('hospital-address').textContent = localStorage.getItem('hospital-address');
+            document.getElementById('hospital-contact').textContent = localStorage.getItem('emergency-contact');
+
+            // Check for notifications about patient arrivals
+            checkHospitalNotifications();
+
+            // Display map (Google Maps API or placeholder)
+            displayMap();
+        });
+
+        // Simulate map for tracking ambulance (using Google Maps or a placeholder)
+        function displayMap() {
+            const mapElement = document.getElementById('hospital-map');
+            // Google Maps API code can be integrated here
+            mapElement.innerHTML = '<p>Ambulance is en route (map placeholder)</p>';
+        }
+
+        // Update hospital status
+        function updateHospitalStatus() {
+            const status = document.getElementById('preparation-status').value;
+            alert(`Hospital status updated: ${status}`);
+        }
+    </script>
+</body>
+</html>

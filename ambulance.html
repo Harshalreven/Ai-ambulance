@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Ambulance Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1>AI Ambulance Portal</h1>
+        </div>
+    </header>
+
+    <section id="ambulance-dashboard">
+        <h2>Ambulance Dashboard</h2>
+
+        <!-- Emergency Requests -->
+        <div id="emergency-requests">
+            <h3>Incoming Emergency Requests</h3>
+            <div id="incoming-emergency">
+                <p>No emergency requests yet.</p>
+            </div>
+        </div>
+
+        <!-- Buttons to Accept or Decline Emergency -->
+        <button id="accept-emergency-btn" onclick="acceptEmergency()" style="display:none;">Accept Emergency</button>
+        <button id="decline-emergency-btn" onclick="declineEmergency()" style="display:none;">Decline Emergency</button>
+
+        <!-- Live Tracking and Route -->
+        <div id="live-tracking" style="display:none;">
+            <h3>Live Patient Location and Fastest Route</h3>
+            <div id="patient-location">Tracking Patient Location...</div>
+            <div id="ambulance-map" style="width: 100%; height: 400px; background-color: grey;"></div> <!-- Placeholder for the map -->
+            <div id="fastest-route">Calculating Fastest Route...</div>
+        </div>
+    </section>
+
+    <script>
+        // Load the map and show the fastest route to a hospital
+        function displayAmbulanceMap() {
+            const mapElement = document.getElementById('ambulance-map');
+            // Google Maps API code can be integrated here for live tracking
+            mapElement.innerHTML = '<p>Ambulance is en route (map placeholder)</p>';
+        }
+
+        // Simulate tracking patient's live location and calculating fastest route
+        function trackPatient() {
+            const patientLocation = localStorage.getItem('emergency-location');
+            document.getElementById('patient-location').innerHTML = `Patient Location: ${patientLocation}`;
+
+            displayAmbulanceMap();
+
+            // Simulate calculating the fastest route to a hospital with the required equipment
+            setTimeout(() => {
+                const route = calculateFastestRoute(currentEmergency);
+                document.getElementById('fastest-route').innerHTML = route;
+                notifyHospitalArrival();
+            }, 3000); // Simulated 3-second delay for route calculation
+        }
+    </script>
+</body>
+</html>
